@@ -123,3 +123,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Default prim
+
+AUTH_USER_MODEL = 'core.User'

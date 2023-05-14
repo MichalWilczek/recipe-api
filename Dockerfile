@@ -26,26 +26,26 @@ ARG DEV=false
 
 # Single run command to keep one image layer for simplicity
 RUN python -m venv /py && \
-  /py/bin/pip install --upgrade pip && \
-  # install  postgresql client for psychopg2 \
-  apk update && \
-  apk add --update --no-cache postgresql-client && \
-  # set virtual dependency package and make it temporary to delete it after psychopg2 is installed
-  apk add --update --no-cache --virtual .tmp-build-deps &&  build-base postgresql-dev musl-dev && \
-  /py/bin/pip install -r /tmp/requirements.txt && \
-  if [ $DEV = "true" ]; \
-    then /py/bin/pip install -r /tmp/requirements.dev.txt; \
-  fi && \
-  rm -rf /tmp && \
-  # remove temporary dependencies for building -> keep the image as small as possible
-  apk del .tmp-build-deps && \
-  adduser \
-    --disabled-password \
-    --no-create-home \
-    django-user
+    /py/bin/pip install --upgrade pip && \
+    # install  postgresql client for psychopg2 \
+    apk add --update --no-cache postgresql-client && \
+    # set virtual dependency package and make it temporary to delete it after psychopg2 is installed
+    apk add --update --no-cache --virtual .tmp-build-deps \
+        build-base postgresql-dev musl-dev && \
+    /py/bin/pip install -r /tmp/requirements.txt && \
+    if [ $DEV = "true" ]; \
+        then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
+    fi && \
+    rm -rf /tmp && \
+    # remove temporary dependencies for building -> keep the image as small as possible
+    apk del .tmp-build-deps && \
+    adduser \
+        --disabled-password \
+        --no-create-home \
+        django-user
 
 # Update the environment variable
 ENV PATH="/py/bin:$PATH"
 
 # Change the user from 'root' to 'django-user'
-USER django-user
+#USER django-user

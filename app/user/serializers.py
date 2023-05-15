@@ -11,7 +11,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ['email', 'password', 'name']  # Only add attributes that the user can modify
+        # Only add fields that the user can modify
+        fields = ['email', 'password', 'name']
         extra_kwargs = {
             'password': {
                 'write_only': True,
@@ -19,6 +20,6 @@ class UserSerializer(serializers.ModelSerializer):
             }
         }
 
-        def create(self, validated_data):
-            """Create and return a user with encrypted password."""
-            return get_user_model().objects.create_user(**validated_data)
+    def create(self, validated_data):
+        """Create and return a user with encrypted password."""
+        return get_user_model().objects.create_user(**validated_data)

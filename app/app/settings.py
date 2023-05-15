@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'drf_spectacular',
     'core',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +128,10 @@ STATIC_URL = '/static/'
 # Default prim
 
 AUTH_USER_MODEL = 'core.User'
+
+
+# Configure rest-framework so that drf-spectacular can be used
+# to generate API schemasw
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema'
+}

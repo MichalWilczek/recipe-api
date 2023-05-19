@@ -49,7 +49,8 @@ class Recipe(models.Model):
     """Recipe object."""
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        # if the user deletes their profile, all recipes are also deleted from DB
+        # if the user deletes their profile,
+        # all recipes are also deleted from DB
         on_delete=models.CASCADE,
     )
     title = models.CharField(max_length=255)

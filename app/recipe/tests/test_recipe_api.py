@@ -373,11 +373,11 @@ class PrivateRecipeApiTests(TestCase):
 
     def test_update_recipe_assign_ingredient(self):
         """Test assigning an existing ingredient when updating a recipe."""
-        ingredient1 = Ingredient.objects.create(self.user, name='Pepper')
+        ingredient1 = Ingredient.objects.create(user=self.user, name='Pepper')
         recipe = create_recipe(user=self.user)
         recipe.ingredients.add(ingredient1)
 
-        ingredient2 = Ingredient.objects.create(self.user, name='Chili')
+        ingredient2 = Ingredient.objects.create(user=self.user, name='Chili')
         payload = {
             'ingredients': [
                 {'name': 'Chili'}
@@ -392,7 +392,7 @@ class PrivateRecipeApiTests(TestCase):
 
     def test_clear_recipe_ingredients(self):
         """Test clearing a recipes ingredients."""
-        ingredient = Ingredient.objects.create(self.user, name='Garlic')
+        ingredient = Ingredient.objects.create(user=self.user, name='Garlic')
         recipe = create_recipe(user=self.user)
         recipe.ingredients.add(ingredient)
 

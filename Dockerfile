@@ -11,6 +11,7 @@ ENV PYTHONUNBUFFERED 1
 # Copy the necessary files in the docker image
 COPY ./requirements.txt /tmp/requirements.txt
 COPY ./requirements.dev.txt /tmp/requirements.dev.txt
+COPY ./scripts /scripts
 COPY ./app /app
 
 # Default directory that all commands will be running from
@@ -30,7 +31,7 @@ RUN python -m venv /py && \
     # install  postgresql client for psychopg2 \
     apk add --update --no-cache postgresql-client jpeg-dev && \
     # set virtual dependency package and make it temporary to delete it after psychopg2 is installed
-    apk add --update --no-cache --virtual .tmp-build-deps \
+    apk add --update --no-cache --virtual .tmp-build-deps linux-headers \
         build-base postgresql-dev musl-dev zlib zlib-dev && \
     /py/bin/pip install -r /tmp/requirements.txt && \
     if [ $DEV = "true" ]; \
@@ -46,10 +47,13 @@ RUN python -m venv /py && \
         mkdir -p /vol/web/media && \
         mkdir -p /vol/web/static && \
         chown -R django-user:django-user /vol && \
-        chmod -R 755 /vol
+        chmod -R 755 /vol && \
+        chmod -R +x /scripts
 
 # Update the environment variable
-ENV PATH="/py/bin:$PATH"
+ENV PATH="/scripts:/py/bin:$PATH"
 
 # Change the user from 'root' to 'django-user'
 #USER django-user
+
+CMD ["run.sh"]

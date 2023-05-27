@@ -22,6 +22,7 @@ services:
       - DB_NAME=devdb
       - DB_USER=devuser
       - DB_PASS=mypassword
+      - DEBUG=1
     depends_on:
       - db  # start app after the 'db' service is launched
 

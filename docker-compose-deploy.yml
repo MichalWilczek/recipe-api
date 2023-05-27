@@ -21,7 +21,7 @@ services:
     image: postgres:13-alpine
     restart: always
     volumes:
-      - postgres-data:/var/postgres/data
+      - postgres-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
@@ -34,7 +34,7 @@ services:
     depends_on:
       - app
     ports:
-      - "8080:8000"  # map port 80 on the server to 8000 on the running container
+      - "80:8000"  # map port 80 on the server to 8000 on the running container
     volumes:
       - static-data:/vol/static
 

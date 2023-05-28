@@ -34,7 +34,7 @@ services:
     depends_on:
       - app
     ports:
-      - "80:8000"  # map port 80 on the server to 8000 on the running container
+      - "8000:8000"  # map port 80 on the server to 8000 on the running container
     volumes:
       - static-data:/vol/static
 
